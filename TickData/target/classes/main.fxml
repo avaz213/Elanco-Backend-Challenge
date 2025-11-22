@@ -8,13 +8,13 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml">
    <children>
-      <TableView layoutX="57.0" layoutY="89.0" prefHeight="266.0" prefWidth="485.0">
+      <TableView layoutX="57.0" layoutY="89.0" prefHeight="266.0" prefWidth="485.0" fx:id="tableview">
         <columns>
-          <TableColumn prefWidth="107.33331298828125" text="ID" />
-          <TableColumn prefWidth="96.00003051757812" text="Date" />
-            <TableColumn prefWidth="88.0" text="Location" />
-            <TableColumn prefWidth="86.66668701171875" text="Species" />
-            <TableColumn minWidth="0.0" prefWidth="104.33331298828125" text="Latin Species" />
+          <TableColumn prefWidth="107.33331298828125" text="ID" fx:id="id_column"/>
+          <TableColumn prefWidth="96.00003051757812" text="Date" fx:id="date_column" />
+            <TableColumn prefWidth="88.0" text="Location" fx:id="location_column"/>
+            <TableColumn prefWidth="86.66668701171875" text="Species" fx:id="species_column" />
+            <TableColumn minWidth="0.0" prefWidth="104.33331298828125" text="Latin Species" fx:id="latin_column"/>
         </columns>
       </TableView>
       <Pagination layoutX="342.0" layoutY="355.0" prefHeight="9.0" prefWidth="200.0" />

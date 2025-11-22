@@ -1,4 +1,9 @@
 import java.time.LocalDate;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
 
 public class ExcelRow {
     private final StringProperty id;
@@ -7,7 +12,7 @@ public class ExcelRow {
     private final StringProperty species;
     private final StringProperty latin_name;
 
-    public ExcelRow(String id, String date, String location, String species, String latin_name)
+    public ExcelRow(String id, LocalDate date, String location, String species, String latin_name)
     {
         this.id = new SimpleStringProperty(id);
         this.date = new SimpleObjectProperty<>(date);
@@ -16,7 +21,7 @@ public class ExcelRow {
         this.latin_name = new SimpleStringProperty(latin_name);
     }
 
-    public StringProperty IDProperty()
+    public StringProperty idProperty()
     {
         return id;
     }

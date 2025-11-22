@@ -2,6 +2,10 @@ import java.io.FileInputStream;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 
 public class ExcelInitial{
@@ -11,25 +15,22 @@ public class ExcelInitial{
         Set<String> done = new HashSet<>();
 
         try (FileInputStream stream = new FileInputStream(path);
-            Workbook wb = new XSSFWorkbook(wb))
+            Workbook wb = new XSSFWorkbook(stream))
             {
-                Sheet sheet = workbook.getSheetAt(0);
+                Sheet sheet = wb.getSheetAt(0);
 
                 for(Row row : sheet)
                 {
-                    if(row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) || row.getCell(3) || row.getCell(4))
+                    if(row.getCell(0) == null || row.getCell(1) == null || row.getCell(2) == null || row.getCell(3) == null|| row.getCell(4) == null)
                     {
                         continue;
                     }
 
-                    else
-                    {
-                        String id = row.getCell(0).getStringCellValue();
-                        String date = row.getCell(1).getLocalDateCellValue();
-                        String location = row.getCell(2).getStringCellValue();
-                        String species = row.getCell(3).getStringCellValue();
-                        String latin_name = row.getCell(4).getStringCellValue();
-                    }
+                    String id = row.getCell(0).getStringCellValue();
+                    LocalDate date = row.getCell(1).getLocalDateTimeCellValue().toLocalDate();
+                    String location = row.getCell(2).getStringCellValue();
+                    String species = row.getCell(3).getStringCellValue();
+                    String latin_name = row.getCell(4).getStringCellValue();
 
                     String key = id + "|" + date + "|" + location + "|" + species + "|" + latin_name;
 
@@ -45,7 +46,7 @@ public class ExcelInitial{
             }
         }
 
-        public List<RowData> getResults() {
+        public List<ExcelRow> getResults() {
             return results;
         }
     

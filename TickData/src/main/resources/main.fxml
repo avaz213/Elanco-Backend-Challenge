@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml">
    <children>
-      <TableView layoutX="57.0" layoutY="89.0" prefHeight="266.0" prefWidth="485.0">
+      <TableView layoutX="57.0" layoutY="89.0" prefHeight="266.0" prefWidth="485.0" fx:id="tableview">
         <columns>
           <TableColumn prefWidth="107.33331298828125" text="ID" fx:id="id_column"/>
           <TableColumn prefWidth="96.00003051757812" text="Date" fx:id="date_column" />
