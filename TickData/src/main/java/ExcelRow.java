@@ -4,22 +4,26 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
+// Class represents structure of every row of data that will be displayed
 
 public class ExcelRow {
+    // All columns are defined
     private final StringProperty id;
     private final ObjectProperty<LocalDate> date;
     private final StringProperty location;
     private final StringProperty species;
-    private final StringProperty latin_name;
+    private final StringProperty latinName;
 
-    public ExcelRow(String id, LocalDate date, String location, String species, String latin_name)
+    public ExcelRow(String id, LocalDate date, String location, String species, String latinName)
     {
         this.id = new SimpleStringProperty(id);
         this.date = new SimpleObjectProperty<>(date);
         this.location = new SimpleStringProperty(location);
         this.species = new SimpleStringProperty(species);
-        this.latin_name = new SimpleStringProperty(latin_name);
+        this.latinName = new SimpleStringProperty(latinName);
     }
+
+    // Returns the property object in the column which is used to bind values to UI elements
 
     public StringProperty idProperty()
     {
@@ -41,10 +45,12 @@ public class ExcelRow {
         return species;
     }
 
-    public StringProperty latinProperty()
+    public StringProperty latinNameProperty()
     {
-        return latin_name;
+        return latinName;
     }
+
+    // Returns the actual value in the column
 
     public String getID()
     {
@@ -66,8 +72,8 @@ public class ExcelRow {
         return species.get();
     }
 
-    public String getLatin()
+    public String getLatinName()
     {
-        return latin_name.get();
+        return latinName.get();
     }
 }
