@@ -1,10 +1,18 @@
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.collections.ObservableList;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
 // Class which interacts directly with main.fxml
 
@@ -21,6 +29,9 @@ public class ExcelController{
     @FXML private DatePicker enddate_DatePicker;
 
     private FilteredList<ExcelRow> filtered;
+    private String currentJson = "{}";
+
+
 
     @FXML
     public void initialize() {
@@ -45,6 +56,17 @@ public class ExcelController{
         sorted.comparatorProperty().bind(tableview.comparatorProperty());
         // applying data to table view
         tableview.setItems(sorted);
+
+        try {
+            HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+            server.createContext("/results", exchange -> sendEndpoints(exchange));
+            server.setExecutor(null);
+            server.start();
+            //System.out.println("Server started at http://localhost:8080/results");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         // if these elements have data entered in them filtering is triggered
 
@@ -73,9 +95,39 @@ public class ExcelController{
             if (end != null && row.getDate().isAfter(end)) {
                 valid_date = false;
             }
+
             return valid_location && valid_date;
         });
     }
+
+    private void sendEndpoints(HttpExchange exchange) throws IOException
+    {
+        String json = makeJSON();
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, json.getBytes().length);
+
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(json.getBytes());
+        }
+        
+    }
+
+    @FXML
+    private void sendEndpoints2()
+    {
+        currentJson = makeJSON();
+
+    }
+
+    private String makeJSON()
+    {
+        String json = "{" +  "\"location\":\"" + location_textField.getText() + "\"," +
+                    "\"tickspottings\":" + filtered.size() + "," +
+                    "\"startDate\":\"" + startdate_DatePicker.getValue() + "\"," +
+                    "\"endDate\":\"" + enddate_DatePicker.getValue() + "\"" + " }";
+        return json;
+    }
+    
 
 
 
