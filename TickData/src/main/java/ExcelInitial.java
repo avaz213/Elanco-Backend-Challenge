@@ -57,11 +57,6 @@ public class ExcelInitial{
                 System.out.println("File not found: " + e.getMessage());
             }
 
-            catch(InvalidFormatException e)
-            {
-                System.out.println("Excel file is in invalid format: " + e.getMessage());
-            }
-
             catch (IOException e)
             {
                 System.out.println("Error occured when reading file: " + e.getMessage());
