@@ -19,8 +19,5 @@ All Java files are in TickData\src\main\java and fxml files and Tick Sightings .
 8) In ExcelController.java line 46, replace path of Tick Sightings.xls with your path.
 9) Run in project terminal eg: in Visual Studio Code using mvn clean javafx:run in the TickData directory.
 
-\* HTTPServer must be terminated eg in powershell before the program is run again
-
-### Video demonstration:
-https://youtu.be/62erBAQr4n0
+\* HTTPServer must be terminated eg: by using powershell before the program is run again
 
