@@ -30,6 +30,6 @@
       <Text layoutX="58.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location Filter:" />
       <Text layoutX="58.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range:" />
       <DatePicker fx:id="enddate_DatePicker" layoutX="331.0" layoutY="72.0" />
-      <Button fx:id="endpoint_button" layoutX="444.0" layoutY="35.0" mnemonicParsing="false" onAction="#sendEndpoints2" text="Send Endpoints" />
+      <Button fx:id="endpoint_button" layoutX="444.0" layoutY="35.0" mnemonicParsing="false" onAction="#btn_send_click" text="Send Endpoints" />
    </children>
 </Pane>

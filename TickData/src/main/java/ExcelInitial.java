@@ -1,4 +1,7 @@
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.time.LocalDate;
@@ -49,9 +52,19 @@ public class ExcelInitial{
                     }
                 }
             }
-            catch (Exception e) 
+            catch (FileNotFoundException e) 
             {
-                e.printStackTrace();
+                System.out.println("File not found: " + e.getMessage());
+            }
+
+            catch(InvalidFormatException e)
+            {
+                System.out.println("Excel file is in invalid format: " + e.getMessage());
+            }
+
+            catch (IOException e)
+            {
+                System.out.println("Error occured when reading file: " + e.getMessage());
             }
         }
 

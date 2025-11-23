@@ -12,6 +12,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import java.io.OutputStream;
+import java.net.BindException;
 import java.net.InetSocketAddress;
 
 // Class which interacts directly with main.fxml
@@ -30,8 +31,6 @@ public class ExcelController{
 
     private FilteredList<ExcelRow> filtered;
     private String currentJson = "{}";
-
-
 
     @FXML
     public void initialize() {
@@ -57,16 +56,24 @@ public class ExcelController{
         // applying data to table view
         tableview.setItems(sorted);
 
-        try {
+        try 
+        {
+            // Server is created at http://localhost:8080/results
             HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
             server.createContext("/results", exchange -> sendEndpoints(exchange));
             server.setExecutor(null);
             server.start();
-            //System.out.println("Server started at http://localhost:8080/results");
-        } catch (Exception e) {
-            e.printStackTrace();
+        }    
+        
+        catch(BindException e)
+        {
+            System.out.println("Port is 8080 is already being used.");
         }
 
+        catch(IOException e)
+        {
+            System.out.println("Unable to start server: " + e.getMessage());
+        }
 
         // if these elements have data entered in them filtering is triggered
 
@@ -103,24 +110,36 @@ public class ExcelController{
     private void sendEndpoints(HttpExchange exchange) throws IOException
     {
         String json = makeJSON();
+        // Telling client what format body is in (JSON)
         exchange.getResponseHeaders().set("Content-Type", "application/json");
+        // Sending status code and length of response
         exchange.sendResponseHeaders(200, json.getBytes().length);
 
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(json.getBytes());
         }
+
+        catch(IOException e)
+        {
+            System.out.println("Unable to connect to server: " + e.getMessage());
+        }
+
+        catch(NullPointerException e)
+        {
+            System.out.println("JSON is empty");
+        }  
         
     }
 
     @FXML
-    private void sendEndpoints2()
+    private void btn_send_click()
     {
         currentJson = makeJSON();
-
     }
 
     private String makeJSON()
     {
+        // Data that will be sent
         String json = "{" +  "\"location\":\"" + location_textField.getText() + "\"," +
                     "\"tickspottings\":" + filtered.size() + "," +
                     "\"startDate\":\"" + startdate_DatePicker.getValue() + "\"," +
@@ -128,7 +147,4 @@ public class ExcelController{
         return json;
     }
     
-
-
-
 }
