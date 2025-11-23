@@ -20,3 +20,7 @@ All Java files are in TickData\src\main\java and fxml files and Tick Sightings .
 9) Run in project terminal eg: in Visual Studio Code using mvn clean javafx:run in the TickData directory.
 
 \* HTTPServer must be terminated eg in powershell before the program is run again
+
+### Video demonstration:
+https://youtu.be/62erBAQr4n0
+
